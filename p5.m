@@ -78,7 +78,7 @@ for i = idx
     yy = conv(windows{i}, xx);
     % cut off the first L elements of the convolution
     output(:, i) = yy(round(L(i)):end);
-    subplot(7,1,i);
+    subplot(length(idx),1,i);
     % plot the output
     plot(t, abs(output(:,i)));
     ylim([0,1])
