@@ -158,6 +158,10 @@ determinePassBand(L, HH);
 fprintf("x[n] = %f + %fcos(0.1pi*n + %f) + %fcos(0.25pi*n + %f)\n", ...
     2 * 0.007350, 2 * 0.007290, pi/3-3.078761, 1.001234, -pi/3 - 3.078761);
 
+% the magnitude of the first two terms is almost zero because they are in
+% the stop band
+% the magnitude of the last term is almost one because it is in the pass
+% band
 
 %% 4.2d
 % The magnitude response of the filter is approximately 1 at 0.25pi

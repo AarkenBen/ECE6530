@@ -209,6 +209,11 @@ Pass band width=0.141372 radians for L = 81
 
 </pre><img vspace="5" hspace="5" src="main_11.png" alt=""> <h2 id="14">4.2c</h2><pre class="codeinput">fprintf(<span class="string">"x[n] = %f + %fcos(0.1pi*n + %f) + %fcos(0.25pi*n + %f)\n"</span>, <span class="keyword">...</span>
     2 * 0.007350, 2 * 0.007290, pi/3-3.078761, 1.001234, -pi/3 - 3.078761);
+
+<span class="comment">% the magnitude of the first two terms is almost zero because they are in</span>
+<span class="comment">% the stop band</span>
+<span class="comment">% the magnitude of the last term is almost one because it is in the pass</span>
+<span class="comment">% band</span>
 </pre><pre class="codeoutput">x[n] = 0.014700 + 0.014580cos(0.1pi*n + -2.031563) + 1.001234cos(0.25pi*n + -4.125959)
 </pre><h2 id="15">4.2d</h2><p>The magnitude response of the filter is approximately 1 at 0.25pi This means that the magnitude of the response will be scaled by approximately 1 at the frequency on the other hand, the magnitude is approximately 0 away from 0.25 pi This means that the magnitude of the response will be approximately 0 for frequencies away from 0.25pi</p><h2 id="16">4.2 Functions</h2><pre class="codeinput"><span class="keyword">function</span> HH = p4sub(L, w_hat)
     w = -pi:(pi/1000):pi;
@@ -411,6 +416,10 @@ determinePassBand(L, HH);
 fprintf("x[n] = %f + %fcos(0.1pi*n + %f) + %fcos(0.25pi*n + %f)\n", ...
     2 * 0.007350, 2 * 0.007290, pi/3-3.078761, 1.001234, -pi/3 - 3.078761);
 
+% the magnitude of the first two terms is almost zero because they are in
+% the stop band
+% the magnitude of the last term is almost one because it is in the pass
+% band
 
 %% 4.2d
 % The magnitude response of the filter is approximately 1 at 0.25pi
