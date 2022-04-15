@@ -1,4 +1,4 @@
-%% Bandpass Filter Design: Lab P-14: 2 Lab Exercises
+%% Bandpass Filter Design: Lab P-14: 4 Lab Exercise
 clc 
 clear
 close all
