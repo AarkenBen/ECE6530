@@ -1,0 +1,462 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>main</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-04-15"><meta name="DC.source" content="main.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Bandpass Filter Design: Lab P-14: 2 Lab Exercises</a></li><li><a href="#2">4.1</a></li><li><a href="#3">4.1a)</a></li><li><a href="#4">4.1b)</a></li><li><a href="#5">4.1c.1) L = 20</a></li><li><a href="#6">4.1c.2) L = 80</a></li><li><a href="#7">4.1c.3) Comparison of 20, 40, 80</a></li><li><a href="#8">4.1c.4)  What happens when L is doubled or halved?</a></li><li><a href="#9">4.2</a></li><li><a href="#10">4.2a</a></li><li><a href="#11">4.2b.1 L=41</a></li><li><a href="#12">4.2b.2 L=21</a></li><li><a href="#13">4.2b.3 L=81</a></li><li><a href="#14">4.2c</a></li><li><a href="#15">4.2d</a></li><li><a href="#16">4.2 Functions</a></li></ul></div><h2 id="1">Bandpass Filter Design: Lab P-14: 2 Lab Exercises</h2><pre class="codeinput">clc
+clear
+close <span class="string">all</span>
+</pre><h2 id="2">4.1</h2><pre class="codeinput">W = 0.4*pi;                 <span class="comment">% Center frequency definition</span>
+WW = -pi:(pi/1000):pi;      <span class="comment">% frequency range</span>
+</pre><h2 id="3">4.1a)</h2><pre class="codeinput">L = 40;                     <span class="comment">% Window length setup</span>
+
+h_40 = BPF(L, W);           <span class="comment">% Band Pass filter with the length of 40</span>
+HH_40 = freqz(h_40, 1 ,WW);
+
+figure
+plot(WW, abs(HH_40));
+title(<span class="string">'Magnitude response of the Band Pass Filter L=40'</span>)
+xlabel(<span class="string">'\omega'</span>)
+ylabel(<span class="string">'|H|'</span>)
+
+figure
+plot(WW, angle(HH_40));
+title(<span class="string">'Phase response of the Band Pass Filter L=40'</span>)
+xlabel(<span class="string">'\omega'</span>)
+ylabel(<span class="string">'Phase value'</span>)
+</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <img vspace="5" hspace="5" src="main_02.png" alt=""> <h2 id="4">4.1b)</h2><pre class="codeinput">PB_40 = zeros(size(HH_40));
+<span class="keyword">for</span> i=1:length(HH_40)
+    <span class="keyword">if</span> abs(HH_40(i)) &gt;= 0.5
+        PB_40(i) = abs(HH_40(i));
+    <span class="keyword">else</span>
+        PB_40(i) = 0;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+NUmnz_40 = nnz(PB_40)/2;    <span class="comment">% non zero element of PB vector for L = 40</span>
+fprintf(<span class="string">"Bandpass Width (L=%d) is %d\n"</span>, L, NUmnz_40);
+</pre><pre class="codeoutput">Bandpass Width (L=40) is 60
+</pre><h2 id="5">4.1c.1) L = 20</h2><pre class="codeinput">L = 20;                     <span class="comment">% Window length setup</span>
+
+h_20 = BPF(L, W);           <span class="comment">% Band Pass filter with the length of 20</span>
+HH_20 = freqz(h_20, 1, WW);
+
+figure
+plot(WW, abs(HH_20));
+title(<span class="string">'Magnitude response of the Band Pass Filter L=20'</span>)
+xlabel(<span class="string">'\omega'</span>)
+ylabel(<span class="string">'|H|'</span>)
+
+figure
+plot(WW, angle(HH_20));
+title(<span class="string">'Phase response of the Band Pass Filter L=20'</span>)
+xlabel(<span class="string">'\omega'</span>)
+ylabel(<span class="string">'Phase value'</span>)
+
+PB_20 = zeros(size(HH_20));
+<span class="keyword">for</span> i=1:length(HH_20)
+    <span class="keyword">if</span> abs(HH_20(i)) &gt;= 0.5
+        PB_20(i) = abs(HH_20(i));
+    <span class="keyword">else</span>
+        PB_20(i) = 0;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+NUmnz_20 = nnz(PB_20)/2;    <span class="comment">% non zero element of PB vector for L = 20</span>
+fprintf(<span class="string">"Bandpass Width (L=%d) is %d\n"</span>, L, NUmnz_20);
+</pre><pre class="codeoutput">Bandpass Width (L=20) is 121
+</pre><img vspace="5" hspace="5" src="main_03.png" alt=""> <img vspace="5" hspace="5" src="main_04.png" alt=""> <h2 id="6">4.1c.2) L = 80</h2><pre class="codeinput">L = 80;                     <span class="comment">% Window length setup</span>
+
+h_80 = BPF(L, W);           <span class="comment">% Band Pass filter with the length of 80</span>
+HH_80 = freqz(h_80, 1, WW);
+
+figure
+plot(WW, abs(HH_80));
+title(<span class="string">'Magnitude response of the Band Pass Filter L=80'</span>)
+xlabel(<span class="string">'\omega'</span>)
+ylabel(<span class="string">'|H|'</span>)
+
+figure
+plot(WW, angle(HH_80));
+title(<span class="string">'Phase response of the Band Pass Filter L=80'</span>)
+xlabel(<span class="string">'\omega'</span>)
+ylabel(<span class="string">'Phase value'</span>)
+
+PB_80 = zeros(size(HH_80));
+<span class="keyword">for</span> i=1:length(HH_80)
+    <span class="keyword">if</span> abs(HH_80(i)) &gt;= 0.5
+        PB_80(i) = abs(HH_80(i));
+    <span class="keyword">else</span>
+        PB_80(i) = 0;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+NUmnz_80 = nnz(PB_80)/2;     <span class="comment">% non zero element of PB vector for L = 80</span>
+fprintf(<span class="string">"Bandpass Width (L=%d) is %d\n"</span>, L, NUmnz_80);
+</pre><pre class="codeoutput">Bandpass Width (L=80) is 31
+</pre><img vspace="5" hspace="5" src="main_05.png" alt=""> <img vspace="5" hspace="5" src="main_06.png" alt=""> <h2 id="7">4.1c.3) Comparison of 20, 40, 80</h2><pre class="codeinput">figure;
+plot(WW,abs(HH_40),<span class="string">'k'</span>)
+hold <span class="string">on</span>
+plot(WW, PB_40, <span class="string">'g-*'</span>, WW, PB_80, <span class="string">'r-o'</span>, WW, PB_20, <span class="string">'b-^'</span>)
+title(<span class="string">'Magnitude response of the Band Pass Filter'</span>)
+xlabel(<span class="string">'\omega'</span>); ylabel(<span class="string">'Phase value'</span>)
+legend(<span class="string">'Output response BPF'</span>,<span class="string">'40'</span>,<span class="string">'80'</span>,<span class="string">'20'</span>)
+
+
+figure;
+plot(WW, angle(HH_20), <span class="string">'b-^'</span>, <span class="keyword">...</span>
+     WW, angle(HH_40), <span class="string">'g-*'</span>, <span class="keyword">...</span>
+     WW, angle(HH_80), <span class="string">'r-o'</span>)
+title(<span class="string">'Phase response of the Band Pass Filter'</span>)
+xlabel(<span class="string">'\omega'</span>); ylabel(<span class="string">'Phase value'</span>)
+legend(<span class="string">'40'</span>,<span class="string">'20'</span>,<span class="string">'80'</span>);
+</pre><img vspace="5" hspace="5" src="main_07.png" alt=""> <img vspace="5" hspace="5" src="main_08.png" alt=""> <h2 id="8">4.1c.4)  What happens when L is doubled or halved?</h2><p>When L is doubled the pass band width is halved. When L is halved the pass band width is doubled.</p><h2 id="9">4.2</h2><pre class="codeinput">w_hat = 0.25*pi;
+</pre><h2 id="10">4.2a</h2><pre class="codeinput">L=41;
+pause(1)
+HH = p4sub(L, w_hat);
+</pre><img vspace="5" hspace="5" src="main_09.png" alt=""> <h2 id="11">4.2b.1 L=41</h2><pre class="codeinput">determinePassBand(L, HH);
+</pre><pre class="codeoutput">Pass band width=0.279602 radians for L = 41
+
+</pre><h2 id="12">4.2b.2 L=21</h2><pre class="codeinput">L=21;
+HH = p4sub(L, w_hat);
+determinePassBand(L, HH);
+</pre><pre class="codeoutput">Mag &amp; Phase Response of Frequencies of Interests (L=21)
+   w    |   mag    |   phase
+0.000pi | 0.005499 | -3.110177 
+0.100pi | 0.104399 | -3.110177 
+0.250pi | 1.000601 | -1.539380 
+0.400pi | 0.121711 | 0.031416 
+0.500pi | 0.005508 | 0.031416 
+0.750pi | 0.000164 | 1.602212 
+Pass band width=0.568628 radians for L = 21
+
+</pre><img vspace="5" hspace="5" src="main_10.png" alt=""> <h2 id="13">4.2b.3 L=81</h2><pre class="codeinput">L=81;
+HH = p4sub(L, w_hat);
+determinePassBand(L, HH);
+</pre><pre class="codeoutput">Mag &amp; Phase Response of Frequencies of Interests (L=81)
+   w    |   mag    |   phase
+0.000pi | 0.003661 | 0.125664 
+0.100pi | 0.004098 | 0.125664 
+0.250pi | 0.999627 | 0.125664 
+0.400pi | 0.002718 | 0.125664 
+0.500pi | 0.003043 | 0.125664 
+0.750pi | 0.003437 | 0.125664 
+Pass band width=0.141372 radians for L = 81
+
+</pre><img vspace="5" hspace="5" src="main_11.png" alt=""> <h2 id="14">4.2c</h2><pre class="codeinput">fprintf(<span class="string">"x[n] = %f + %fcos(0.1pi*n + %f) + %fcos(0.25pi*n + %f)\n"</span>, <span class="keyword">...</span>
+    2 * 0.007350, 2 * 0.007290, pi/3-3.078761, 1.001234, -pi/3 - 3.078761);
+</pre><pre class="codeoutput">x[n] = 0.014700 + 0.014580cos(0.1pi*n + -2.031563) + 1.001234cos(0.25pi*n + -4.125959)
+</pre><h2 id="15">4.2d</h2><p>The magnitude response of the filter is approximately 1 at 0.25pi This means that the magnitude of the response will be scaled by approximately 1 at the frequency on the other hand, the magnitude is approximately 0 away from 0.25 pi This means that the magnitude of the response will be approximately 0 for frequencies away from 0.25pi</p><h2 id="16">4.2 Functions</h2><pre class="codeinput"><span class="keyword">function</span> HH = p4sub(L, w_hat)
+    w = -pi:(pi/1000):pi;
+
+    h = gen_hamming(w_hat, L);
+    HH = freqz(h, 1, w);
+
+    figure
+    subplot(2,1,1);
+    plot(w, abs(HH));
+    xlabel(<span class="string">'\omega'</span>); ylabel(<span class="string">'|H|'</span>);
+    title(sprintf(<span class="string">"magnitude plot for L = %d"</span>, L))
+
+    subplot(2,1,2);
+    plot(w, angle(HH));
+    xlabel(<span class="string">'\omega'</span>); ylabel(<span class="string">'Phase value'</span>)
+    title(sprintf(<span class="string">"phase plot for L = %d"</span>, L))
+
+    foi = [0, 100, 250, 400, 500, 750];     <span class="comment">% Frequencies of Interest</span>
+
+    fprintf(<span class="string">"Mag &amp; Phase Response of Frequencies of Interests (L=%d)\n"</span>, L);
+    fprintf(<span class="string">"   w    |   mag    |   phase\n"</span>);
+    <span class="keyword">for</span> i = foi
+         fprintf(<span class="string">"0.%03dpi | %.6f | %.6f \n"</span>, i, abs(HH(1000+i)), angle(HH(1000+i)));
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+
+<span class="keyword">function</span> width = determinePassBand(L, HH)
+    width = nnz(abs(HH) &gt; 0.5) / 2;
+    fprintf(<span class="string">"Pass band width=%f radians for L = %d\n\n"</span>, width * pi/1000, L);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">Mag &amp; Phase Response of Frequencies of Interests (L=41)
+   w    |   mag    |   phase
+0.000pi | 0.007350 | -3.078761 
+0.100pi | 0.007290 | -3.078761 
+0.250pi | 1.001234 | -3.078761 
+0.400pi | 0.006967 | -3.078761 
+0.500pi | 0.006841 | -3.078761 
+0.750pi | 0.007136 | -3.078761 
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Bandpass Filter Design: Lab P-14: 2 Lab Exercises
+clc 
+clear
+close all
+
+
+%% 4.1
+W = 0.4*pi;                 % Center frequency definition
+WW = -pi:(pi/1000):pi;      % frequency range
+
+
+%% 4.1a)
+L = 40;                     % Window length setup
+
+h_40 = BPF(L, W);           % Band Pass filter with the length of 40
+HH_40 = freqz(h_40, 1 ,WW);
+
+figure
+plot(WW, abs(HH_40));
+title('Magnitude response of the Band Pass Filter L=40')
+xlabel('\omega')
+ylabel('|H|')
+
+figure
+plot(WW, angle(HH_40));
+title('Phase response of the Band Pass Filter L=40')
+xlabel('\omega')
+ylabel('Phase value')
+
+
+%% 4.1b)
+
+PB_40 = zeros(size(HH_40));
+for i=1:length(HH_40)
+    if abs(HH_40(i)) >= 0.5
+        PB_40(i) = abs(HH_40(i));
+    else
+        PB_40(i) = 0;
+    end
+end
+
+NUmnz_40 = nnz(PB_40)/2;    % non zero element of PB vector for L = 40
+fprintf("Bandpass Width (L=%d) is %d\n", L, NUmnz_40);
+
+
+%% 4.1c.1) L = 20
+L = 20;                     % Window length setup
+
+h_20 = BPF(L, W);           % Band Pass filter with the length of 20
+HH_20 = freqz(h_20, 1, WW);
+
+figure
+plot(WW, abs(HH_20));
+title('Magnitude response of the Band Pass Filter L=20')
+xlabel('\omega')
+ylabel('|H|')
+
+figure
+plot(WW, angle(HH_20));
+title('Phase response of the Band Pass Filter L=20')
+xlabel('\omega')
+ylabel('Phase value')
+
+PB_20 = zeros(size(HH_20));
+for i=1:length(HH_20)
+    if abs(HH_20(i)) >= 0.5
+        PB_20(i) = abs(HH_20(i));
+    else
+        PB_20(i) = 0;
+    end
+end
+
+NUmnz_20 = nnz(PB_20)/2;    % non zero element of PB vector for L = 20
+fprintf("Bandpass Width (L=%d) is %d\n", L, NUmnz_20);
+
+
+%% 4.1c.2) L = 80
+L = 80;                     % Window length setup
+
+h_80 = BPF(L, W);           % Band Pass filter with the length of 80
+HH_80 = freqz(h_80, 1, WW);
+
+figure
+plot(WW, abs(HH_80));
+title('Magnitude response of the Band Pass Filter L=80')
+xlabel('\omega')
+ylabel('|H|')
+
+figure
+plot(WW, angle(HH_80));
+title('Phase response of the Band Pass Filter L=80')
+xlabel('\omega')
+ylabel('Phase value')
+
+PB_80 = zeros(size(HH_80));
+for i=1:length(HH_80)
+    if abs(HH_80(i)) >= 0.5
+        PB_80(i) = abs(HH_80(i));
+    else
+        PB_80(i) = 0;
+    end
+end
+
+NUmnz_80 = nnz(PB_80)/2;     % non zero element of PB vector for L = 80
+fprintf("Bandpass Width (L=%d) is %d\n", L, NUmnz_80);
+
+
+%% 4.1c.3) Comparison of 20, 40, 80
+
+figure;
+plot(WW,abs(HH_40),'k')
+hold on
+plot(WW, PB_40, 'g-*', WW, PB_80, 'r-o', WW, PB_20, 'b-^')
+title('Magnitude response of the Band Pass Filter')
+xlabel('\omega'); ylabel('Phase value')
+legend('Output response BPF','40','80','20')
+
+
+figure;
+plot(WW, angle(HH_20), 'b-^', ...
+     WW, angle(HH_40), 'g-*', ...
+     WW, angle(HH_80), 'r-o')
+title('Phase response of the Band Pass Filter')
+xlabel('\omega'); ylabel('Phase value')
+legend('40','20','80');
+
+
+%% 4.1c.4)  What happens when L is doubled or halved?
+% When L is doubled the pass band width is halved.
+% When L is halved the pass band width is doubled.
+
+
+%% 4.2
+w_hat = 0.25*pi;
+
+%% 4.2a
+L=41;
+pause(1)
+HH = p4sub(L, w_hat);
+
+%% 4.2b.1 L=41
+determinePassBand(L, HH);
+
+
+%% 4.2b.2 L=21
+L=21;
+HH = p4sub(L, w_hat);
+determinePassBand(L, HH);
+
+
+%% 4.2b.3 L=81
+L=81;
+HH = p4sub(L, w_hat);
+determinePassBand(L, HH);
+
+
+%% 4.2c
+fprintf("x[n] = %f + %fcos(0.1pi*n + %f) + %fcos(0.25pi*n + %f)\n", ...
+    2 * 0.007350, 2 * 0.007290, pi/3-3.078761, 1.001234, -pi/3 - 3.078761);
+
+
+%% 4.2d
+% The magnitude response of the filter is approximately 1 at 0.25pi
+% This means that the magnitude of the response will be scaled by
+% approximately 1 at the frequency
+% on the other hand, the magnitude is approximately 0 away from 0.25 pi
+% This means that the magnitude of the response will be approximately 0 for
+% frequencies away from 0.25pi
+
+
+
+
+
+
+
+%% 4.2 Functions
+function HH = p4sub(L, w_hat)
+    w = -pi:(pi/1000):pi;
+
+    h = gen_hamming(w_hat, L);
+    HH = freqz(h, 1, w);
+    
+    figure
+    subplot(2,1,1);
+    plot(w, abs(HH));
+    xlabel('\omega'); ylabel('|H|');
+    title(sprintf("magnitude plot for L = %d", L))
+
+    subplot(2,1,2);
+    plot(w, angle(HH));
+    xlabel('\omega'); ylabel('Phase value')
+    title(sprintf("phase plot for L = %d", L))
+
+    foi = [0, 100, 250, 400, 500, 750];     % Frequencies of Interest
+    
+    fprintf("Mag & Phase Response of Frequencies of Interests (L=%d)\n", L);
+    fprintf("   w    |   mag    |   phase\n");
+    for i = foi
+         fprintf("0.%03dpi | %.6f | %.6f \n", i, abs(HH(1000+i)), angle(HH(1000+i)));
+    end  
+end
+
+
+function width = determinePassBand(L, HH)
+    width = nnz(abs(HH) > 0.5) / 2;
+    fprintf("Pass band width=%f radians for L = %d\n\n", width * pi/1000, L);
+end
+##### SOURCE END #####
+--></body></html>
