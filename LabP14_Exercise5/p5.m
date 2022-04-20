@@ -1,5 +1,7 @@
-close all
+clc 
 clear
+close all
+
 % 5 filters
 idx = 1:5;
 % the lower normalized radial frequency of the octave
