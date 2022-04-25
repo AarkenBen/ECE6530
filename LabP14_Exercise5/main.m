@@ -4,12 +4,10 @@ clear
 close all
 
 %% 5
-% 5 filters
-idx = 1:5;
-%% 5.1
-
+idx = 1:5;  % 5 filters
+    
 %% 5.1a
-% the lower normalized radial frequency of the octave
+% lower normalized radial frequency of the octave
 lowRad = ones(length(idx), 1);
 % the lowest octave starts at key 16   
 % Key 49 is 440 Hz, so 440*2^((16-49)/12) is the frequency of key 16
@@ -30,6 +28,16 @@ centerRad  = sqrt(lowRad .* highRad);
 % the center in Hertz
 centerHertz = centerRad / 2 / pi;
 
+fprintf("Octave\tLower Edge(Hz)\tHigh Edge(Hz)\tCenter(Hz) \n");
+for i = 1:5
+fprintf("%d\t\t%f\t\t%f\t\t%f\n", i+1, lowHertz(i), highHertz(i), centerHertz(i));
+end
+fprintf("\n");
+fprintf("Octave\tLower Edge(rad)\tHigh Edge(rad)\tCenter(rad) \n");
+for i = 1:5
+fprintf("%d\t\t%f\t\t%f\t\t%f\n", i+1, lowRad(i), highRad(i), centerRad(i));
+end
+
 %% 5.2
 
 %% 5.2a.a
@@ -45,8 +53,13 @@ ww = 0:(pi/1000):pi;
 L = BWL ./ (highRad - lowRad);
 % hamming windows, each will be of different lengths
 windows = cell(length(idx),1);
+
+
 figure
-hold on
+title("Magnitude Reponse Octaves 2 through 6");
+xlabel("\omega");
+ylabel("|H|");
+hold on;
 for i = idx
     % calculate the window using wc and L
     windows{i} = gen_hamming(centerRad(i),round(L(i)));
@@ -60,6 +73,30 @@ for i = idx
     plot(ww / 2 / pi * 8000, abs(HH));
 end
 plot(centerHertz * 8000, ones(i, 1), 'o');
+legend('octave 2', 'octave 3', 'octave 4', 'octave 5', 'octave 6', 'Center Frequencies');
+hold off
+
+WW = 0:pi/1000:pi;      % frequency range
+figure
+title("Phase Reponse Octaves 2 through 6");
+xlabel("\omega");
+ylabel("theta");
+hold on;
+for i = idx
+    % calculate the window using wc and L
+    windows{i} = gen_hamming(centerRad(i),round(L(i)));
+    % calculate magnitude and phase response of h
+    HH = freqz(windows{i}, 1, ww);
+    % normalize the coefficients such that the max is 1
+    windows{i} = windows{i} ./ max(HH);
+    % recalculate HH using normalized coefficients
+    HH = freqz(windows{i}, 1, ww);
+    % plot magnitude, use ww / 2 / pi * 8000 for frequency on x axis
+    %plot(ww / 2 / pi * 8000, abs(HH));
+    plot(angle(HH));
+end
+%plot(centerHertz * 8000, ones(i, 1), 'o');
+legend('octave 2', 'octave 3', 'octave 4', 'octave 5', 'octave 6');
 hold off
 
 %% 5.2d
