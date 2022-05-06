@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>main</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-04-20"><meta name="DC.source" content="main.m"><style type="text/css">
+      --><title>main</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-05-05"><meta name="DC.source" content="main.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,11 +67,11 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Piano Note Decoding: Lab P-14: 5 Lab Exercise</a></li><li><a href="#2">5</a></li><li><a href="#3">5.1</a></li><li><a href="#4">5.1a</a></li><li><a href="#5">5.1b</a></li><li><a href="#6">5.2</a></li><li><a href="#7">5.2a.a</a></li><li><a href="#8">5.2a.b</a></li><li><a href="#9">5.2b and 5.2c</a></li><li><a href="#10">5.2d</a></li><li><a href="#11">5.3</a></li><li><a href="#12">5.3a</a></li><li><a href="#13">5.3b and 5.3c</a></li><li><a href="#14">5.3d</a></li><li><a href="#15">5.3e</a></li></ul></div><h2 id="1">Piano Note Decoding: Lab P-14: 5 Lab Exercise</h2><pre class="codeinput">clc
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Piano Note Decoding: Lab P-14: 5 Lab Exercise</a></li><li><a href="#2">5</a></li><li><a href="#3">5.1a</a></li><li><a href="#4">5.1b</a></li><li><a href="#5">5.2</a></li><li><a href="#6">5.2a.a</a></li><li><a href="#7">5.2a.b</a></li><li><a href="#8">5.2b and 5.2c</a></li><li><a href="#9">5.2d</a></li><li><a href="#10">5.3</a></li><li><a href="#11">5.3a</a></li><li><a href="#12">5.3b and 5.3c</a></li><li><a href="#13">5.3d</a></li><li><a href="#14">5.3e</a></li></ul></div><h2 id="1">Piano Note Decoding: Lab P-14: 5 Lab Exercise</h2><pre class="codeinput">clc
 clear
 close <span class="string">all</span>
-</pre><h2 id="2">5</h2><p>5 filters</p><pre class="codeinput">idx = 1:5;
-</pre><h2 id="3">5.1</h2><h2 id="4">5.1a</h2><p>the lower normalized radial frequency of the octave</p><pre class="codeinput">lowRad = ones(length(idx), 1);
+</pre><h2 id="2">5</h2><pre class="codeinput">idx = 1:5;  <span class="comment">% 5 filters</span>
+</pre><h2 id="3">5.1a</h2><p>lower normalized radial frequency of the octave</p><pre class="codeinput">lowRad = ones(length(idx), 1);
 <span class="comment">% the lowest octave starts at key 16</span>
 <span class="comment">% Key 49 is 440 Hz, so 440*2^((16-49)/12) is the frequency of key 16</span>
 lowRad(1) = 440*2^((16-49)/12) / 8000 * 2 * pi;
@@ -85,18 +85,46 @@ highRad = 2.*lowRad;
 lowHertz = lowRad / 2 / pi;
 <span class="comment">% high end frequencies in Hertz</span>
 highHertz = highRad / 2 / pi;
-</pre><h2 id="5">5.1b</h2><p>the center point of the octave</p><pre class="codeinput">centerRad  = sqrt(lowRad .* highRad);
+</pre><h2 id="4">5.1b</h2><p>the center point of the octave</p><pre class="codeinput">centerRad  = sqrt(lowRad .* highRad);
 <span class="comment">% the center in Hertz</span>
 centerHertz = centerRad / 2 / pi;
-</pre><h2 id="6">5.2</h2><h2 id="7">5.2a.a</h2><p>the instructions say this is nearly impossible</p><h2 id="8">5.2a.b</h2><p>see the lines surrounding the HH variable for scaling of the filters</p><h2 id="9">5.2b and 5.2c</h2><p>The BWL ratio is used to calculate L according to L = BWL / Bandwidth</p><pre class="codeinput">BWL = 0.141372 * 81;
+
+fprintf(<span class="string">"Octave\t\tLower Edge(Hz)\t\tHigh Edge(Hz)\t\tCenter(Hz) \n"</span>);
+<span class="keyword">for</span> i = 1:5
+fprintf(<span class="string">"%d\t\t%f\t\t%f\t\t%f\n"</span>, i+1, lowHertz(i), highHertz(i), centerHertz(i));
+<span class="keyword">end</span>
+fprintf(<span class="string">"\n"</span>);
+fprintf(<span class="string">"Octave\t\tLower Edge(rad)\t\tHigh Edge(rad)\t\tCenter(rad) \n"</span>);
+<span class="keyword">for</span> i = 1:5
+fprintf(<span class="string">"%d\t\t%f\t\t%f\t\t%f\n"</span>, i+1, lowRad(i), highRad(i), centerRad(i));
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">Octave		Lower Edge(Hz)		High Edge(Hz)		Center(Hz) 
+2		0.008176		0.016352		0.011562
+3		0.016352		0.032703		0.023125
+4		0.032703		0.065406		0.046249
+5		0.065406		0.130813		0.092499
+6		0.130813		0.261626		0.184997
+
+Octave		Lower Edge(rad)		High Edge(rad)		Center(rad) 
+2		0.051370		0.102740		0.072648
+3		0.102740		0.205480		0.145296
+4		0.205480		0.410960		0.290593
+5		0.410960		0.821921		0.581186
+6		0.821921		1.643842		1.162372
+</pre><h2 id="5">5.2</h2><h2 id="6">5.2a.a</h2><p>the instructions say this is nearly impossible</p><h2 id="7">5.2a.b</h2><p>see the lines surrounding the HH variable for scaling of the filters</p><h2 id="8">5.2b and 5.2c</h2><p>The BWL ratio is used to calculate L according to L = BWL / Bandwidth</p><pre class="codeinput">BWL = 0.141372 * 81;
 <span class="comment">% x axis in our plots</span>
 ww = 0:(pi/1000):pi;
 <span class="comment">% calculate L for filters</span>
 L = BWL ./ (highRad - lowRad);
 <span class="comment">% hamming windows, each will be of different lengths</span>
 windows = cell(length(idx),1);
+
+
 figure
-hold <span class="string">on</span>
+title(<span class="string">"Magnitude Reponse Octaves 2 through 6"</span>);
+xlabel(<span class="string">"\omega"</span>);
+ylabel(<span class="string">"|H|"</span>);
+hold <span class="string">on</span>;
 <span class="keyword">for</span> i = idx
     <span class="comment">% calculate the window using wc and L</span>
     windows{i} = gen_hamming(centerRad(i),round(L(i)));
@@ -110,8 +138,32 @@ hold <span class="string">on</span>
     plot(ww / 2 / pi * 8000, abs(HH));
 <span class="keyword">end</span>
 plot(centerHertz * 8000, ones(i, 1), <span class="string">'o'</span>);
+legend(<span class="string">'octave 2'</span>, <span class="string">'octave 3'</span>, <span class="string">'octave 4'</span>, <span class="string">'octave 5'</span>, <span class="string">'octave 6'</span>, <span class="string">'Center Frequencies'</span>);
 hold <span class="string">off</span>
-</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <h2 id="10">5.2d</h2><p>yes the filter's passbands are narrow enough however, there is non-zero area where the magnitude response is below 0.5 yet above 0</p><h2 id="11">5.3</h2><h2 id="12">5.3a</h2><p>number of points in xx</p><pre class="codeinput">N = 0.85*8000;
+
+WW = 0:pi/1000:pi;      <span class="comment">% frequency range</span>
+figure
+title(<span class="string">"Phase Reponse Octaves 2 through 6"</span>);
+xlabel(<span class="string">"\omega"</span>);
+ylabel(<span class="string">"theta"</span>);
+hold <span class="string">on</span>;
+<span class="keyword">for</span> i = idx
+    <span class="comment">% calculate the window using wc and L</span>
+    windows{i} = gen_hamming(centerRad(i),round(L(i)));
+    <span class="comment">% calculate magnitude and phase response of h</span>
+    HH = freqz(windows{i}, 1, ww);
+    <span class="comment">% normalize the coefficients such that the max is 1</span>
+    windows{i} = windows{i} ./ max(HH);
+    <span class="comment">% recalculate HH using normalized coefficients</span>
+    HH = freqz(windows{i}, 1, ww);
+    <span class="comment">% plot magnitude, use ww / 2 / pi * 8000 for frequency on x axis</span>
+    <span class="comment">%plot(ww / 2 / pi * 8000, abs(HH));</span>
+    plot(angle(HH));
+<span class="keyword">end</span>
+<span class="comment">%plot(centerHertz * 8000, ones(i, 1), 'o');</span>
+legend(<span class="string">'octave 2'</span>, <span class="string">'octave 3'</span>, <span class="string">'octave 4'</span>, <span class="string">'octave 5'</span>, <span class="string">'octave 6'</span>);
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <img vspace="5" hspace="5" src="main_02.png" alt=""> <h2 id="9">5.2d</h2><p>yes the filter's passbands are narrow enough however, there is non-zero area where the magnitude response is below 0.5 yet above 0</p><h2 id="10">5.3</h2><h2 id="11">5.3a</h2><p>number of points in xx</p><pre class="codeinput">N = 0.85*8000;
 <span class="comment">% x(t)</span>
 xx = zeros(N,1);
 <span class="comment">% t</span>
@@ -142,7 +194,7 @@ t = zeros(N,1);
     <span class="comment">% formula for third segment</span>
     xx(i) = cos(2*pi*440*i / 8000) + cos(2*pi*1760*i / 8000);
 <span class="keyword">end</span>
-</pre><h2 id="13">5.3b and 5.3c</h2><p>matrix of outputs</p><pre class="codeinput">output = zeros(length(xx), length(windows));
+</pre><h2 id="12">5.3b and 5.3c</h2><p>matrix of outputs</p><pre class="codeinput">output = zeros(length(xx), length(windows));
 figure
 
 <span class="keyword">for</span> i = idx
@@ -172,7 +224,7 @@ figure
     ylim([0,1])
 <span class="keyword">end</span>
 sgtitle(<span class="string">'Phase'</span>)
-</pre><img vspace="5" hspace="5" src="main_02.png" alt=""> <img vspace="5" hspace="5" src="main_03.png" alt=""> <img vspace="5" hspace="5" src="main_04.png" alt=""> <h2 id="14">5.3d</h2><p>Yes, the output signals have the correct magnitude and phase</p><h2 id="15">5.3e</h2><p>The transient time for the second lowest filter is 0.0142s The transient time for the third lowest filter is 0.006s The transient time for the fourth lowest filter is 0.004s The transient time for the fifth lowest filter is 0.0015s</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="main_03.png" alt=""> <img vspace="5" hspace="5" src="main_04.png" alt=""> <h2 id="13">5.3d</h2><p>Yes, the output signals have the correct magnitude and phase</p><h2 id="14">5.3e</h2><p>The transient time for the second lowest filter is 0.0142s The transient time for the third lowest filter is 0.006s The transient time for the fourth lowest filter is 0.004s The transient time for the fifth lowest filter is 0.0015s</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Piano Note Decoding: Lab P-14: 5 Lab Exercise
 clc 
@@ -180,12 +232,10 @@ clear
 close all
 
 %% 5
-% 5 filters
-idx = 1:5;
-%% 5.1
-
+idx = 1:5;  % 5 filters
+    
 %% 5.1a
-% the lower normalized radial frequency of the octave
+% lower normalized radial frequency of the octave
 lowRad = ones(length(idx), 1);
 % the lowest octave starts at key 16   
 % Key 49 is 440 Hz, so 440*2^((16-49)/12) is the frequency of key 16
@@ -206,6 +256,16 @@ centerRad  = sqrt(lowRad .* highRad);
 % the center in Hertz
 centerHertz = centerRad / 2 / pi;
 
+fprintf("Octave\t\tLower Edge(Hz)\t\tHigh Edge(Hz)\t\tCenter(Hz) \n");
+for i = 1:5
+fprintf("%d\t\t%f\t\t%f\t\t%f\n", i+1, lowHertz(i), highHertz(i), centerHertz(i));
+end
+fprintf("\n");
+fprintf("Octave\t\tLower Edge(rad)\t\tHigh Edge(rad)\t\tCenter(rad) \n");
+for i = 1:5
+fprintf("%d\t\t%f\t\t%f\t\t%f\n", i+1, lowRad(i), highRad(i), centerRad(i));
+end
+
 %% 5.2
 
 %% 5.2a.a
@@ -221,8 +281,13 @@ ww = 0:(pi/1000):pi;
 L = BWL ./ (highRad - lowRad);
 % hamming windows, each will be of different lengths
 windows = cell(length(idx),1);
+
+
 figure
-hold on
+title("Magnitude Reponse Octaves 2 through 6");
+xlabel("\omega");
+ylabel("|H|");
+hold on;
 for i = idx
     % calculate the window using wc and L
     windows{i} = gen_hamming(centerRad(i),round(L(i)));
@@ -236,6 +301,30 @@ for i = idx
     plot(ww / 2 / pi * 8000, abs(HH));
 end
 plot(centerHertz * 8000, ones(i, 1), 'o');
+legend('octave 2', 'octave 3', 'octave 4', 'octave 5', 'octave 6', 'Center Frequencies');
+hold off
+
+WW = 0:pi/1000:pi;      % frequency range
+figure
+title("Phase Reponse Octaves 2 through 6");
+xlabel("\omega");
+ylabel("theta");
+hold on;
+for i = idx
+    % calculate the window using wc and L
+    windows{i} = gen_hamming(centerRad(i),round(L(i)));
+    % calculate magnitude and phase response of h
+    HH = freqz(windows{i}, 1, ww);
+    % normalize the coefficients such that the max is 1
+    windows{i} = windows{i} ./ max(HH);
+    % recalculate HH using normalized coefficients
+    HH = freqz(windows{i}, 1, ww);
+    % plot magnitude, use ww / 2 / pi * 8000 for frequency on x axis
+    %plot(ww / 2 / pi * 8000, abs(HH));
+    plot(angle(HH));
+end
+%plot(centerHertz * 8000, ones(i, 1), 'o');
+legend('octave 2', 'octave 3', 'octave 4', 'octave 5', 'octave 6');
 hold off
 
 %% 5.2d
