@@ -28,12 +28,12 @@ centerRad  = sqrt(lowRad .* highRad);
 % the center in Hertz
 centerHertz = centerRad / 2 / pi;
 
-fprintf("Octave\tLower Edge(Hz)\tHigh Edge(Hz)\tCenter(Hz) \n");
+fprintf("Octave\t\tLower Edge(Hz)\t\tHigh Edge(Hz)\t\tCenter(Hz) \n");
 for i = 1:5
 fprintf("%d\t\t%f\t\t%f\t\t%f\n", i+1, lowHertz(i), highHertz(i), centerHertz(i));
 end
 fprintf("\n");
-fprintf("Octave\tLower Edge(rad)\tHigh Edge(rad)\tCenter(rad) \n");
+fprintf("Octave\t\tLower Edge(rad)\t\tHigh Edge(rad)\t\tCenter(rad) \n");
 for i = 1:5
 fprintf("%d\t\t%f\t\t%f\t\t%f\n", i+1, lowRad(i), highRad(i), centerRad(i));
 end
